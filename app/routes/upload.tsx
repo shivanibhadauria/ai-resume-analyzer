@@ -5,9 +5,14 @@ import Navbar from '~/components/Navbar'
 const upload = () => {
     const [ isProcessing, setIsProcessing ] = useState(false);
     const [statusText, setStatusText ] = useState('');
+    const [file, setFile] = useState<File | null>(null);
  
-    const 
+   
+    const handleFileSelect = (file: File | null) => {
+        setFile(file);
+    }
     const handlesubmit = async (e: FormEvent<HTMLFormElement>) => {
+       
       
     }
   return (
@@ -41,9 +46,7 @@ const upload = () => {
                     </div>
                     <div className='form-div' >
                         <label htmlFor='uploader'>Upload Resume</label>
-                        <FileUploader onFileSelect={function (file: File | null): void {
-                                  throw new Error('Function not implemented.');
-                              } }  />
+                        <FileUploader onFileSelect={handleFileSelect} />
                     </div>
                     <button className='primary-button' type='submit' > Analyze Resume   </button>
                 </form>
