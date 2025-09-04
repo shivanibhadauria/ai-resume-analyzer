@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import ATS from '~/components/ATS';
+import Details from '~/components/Details';
 import Summary from '~/components/Summary';
 import { usePuterStore } from '~/lib/puter';
 
@@ -28,8 +29,9 @@ const resume = () => {
         const loadResume = async () => {
           const resume  = await kv.get(`resume:${id}`)
           if(!resume) return;
-      
+          
           const data = JSON.parse(resume);
+          console.log('data', data);
       
           const resumeBlob = await fs.read(data.resumePath)
           if(!resumeBlob) return;
@@ -47,11 +49,13 @@ const resume = () => {
           setImageUrl(imageUrl);
           setFeedback(data.feedback);
 
-          console.log({resumeUrl , imageUrl , feedback})
+          console.log(resumeUrl , imageUrl , feedback)
         }
 
         loadResume();
       },[id] );
+
+      console.log(feedback)
   return (
     <main className='!pt-0' >
 
@@ -90,7 +94,7 @@ const resume = () => {
                         <div className='flex flex-col gap-8 animate-in fade-in duration-1000' >
                            <Summary feedback={feedback} />
                            <ATS score={feedback.ATS?.score || 0 } suggestions={feedback.ATS?.tips || [] }  />
-                           <details feedback={feedback} />
+                           <Details feedback={feedback} />
                             
                         </div>
                     ):(

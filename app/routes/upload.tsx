@@ -1,4 +1,4 @@
-import { prepareInstructions } from 'constants/data';
+import { prepareInstructions , AIResponseFormat } from 'constants/data';
 import React , {useState, type FormEvent} from 'react'
 import { useNavigate } from 'react-router';
 import FileUploader from '~/components/FileUploader';
@@ -55,7 +55,7 @@ const upload = () => {
 
       const feedback = await ai.feedback(
         uploadFile?.path as string,
-        prepareInstructions({jobTitle  , jobDescription , AIResponseFormat : 'json' })
+        prepareInstructions({jobTitle  , jobDescription , AIResponseFormat })
       );
 
       const feedbackData = feedback?.message.content === "string" 
